@@ -15,9 +15,73 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Preload data if needed
+        preloadData()
+        
         return true
     }
 
+    // MARK: - Preload data
+    private func preloadData() {
+        
+        // Reference to user defaults
+        let defaults = UserDefaults.standard
+        
+        // Reference to the Core Data context
+        let context = persistentContainer.viewContext
+        
+        // Check if this is the first launch
+        if defaults.bool(forKey: Constants.PRELOAD_DATA) == false {
+            
+            // If so, parse the json file into Core Data
+            
+            // Get a path to the local json file
+            let path = Bundle.main.path(forResource: "PreloadedData", ofType: "json")
+            
+            // Check that path isn't nil
+            guard path != nil else {
+                print("Couldn't get path to the local json file")
+                return
+            }
+            
+            // Create a URL to it
+            let url = URL(fileURLWithPath: path!)
+            
+            do {
+                
+                // Get the data for the file
+                let data = try Data(contentsOf: url)
+                
+                // Try turning the data into json object
+                let jsonArray = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [ [String:Any] ]
+                
+                // Loop through json objects
+                for d in jsonArray {
+                    
+                    // Create a Place object and populate properties
+                    let p = Place(context: context)
+                    
+                    p.name = d["name"] as? String
+                    p.imageName = d["imagename"] as? String
+                    p.adress = d["address"] as? String
+                    p.summary = d["summary"] as? String
+                    p.lat = d["lat"] as! Double
+                    p.long = d["long"] as! Double
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+            
+            // Save the data
+            self.saveContext()
+            
+            // Set preload data flag to true
+            defaults.set(true, forKey: Constants.PRELOAD_DATA)
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
