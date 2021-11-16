@@ -14,4 +14,6 @@ class Constants {
     static let INFO_VIEWCONTROLLER = "InfoVC"
     static let MAP_VIEWCONTROLLER = "MapVC"
     static let NOTES_VIEWCONTROLLER = "NotesVC"
+    
+    static let PLACE_CELL = "Place Cell"
 }
