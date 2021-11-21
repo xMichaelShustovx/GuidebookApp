@@ -9,6 +9,13 @@ import UIKit
 
 class NotesViewController: UIViewController {
 
+    // MARK: - Variables and Properties
+    
+    var place: Place?
+    
+    
+    // MARK: - ViewController Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
