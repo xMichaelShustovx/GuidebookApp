@@ -141,15 +141,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="diH-Bh-Lht">
-                                        <rect key="frame" x="20" y="273" width="374" height="388"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="diH-Bh-Lht">
+                                        <rect key="frame" x="20" y="273" width="374" height="32"/>
                                         <segments>
-                                            <segment title="First"/>
-                                            <segment title="Second"/>
+                                            <segment title="" image="info.circle" catalog="system"/>
+                                            <segment title="" image="map" catalog="system"/>
+                                            <segment title="" image="pencil" catalog="system"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="segmentChanged:" destination="G82-c3-fO2" eventType="valueChanged" id="7fY-Dj-BTj"/>
+                                        </connections>
                                     </segmentedControl>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fH7-eN-3Iw">
-                                        <rect key="frame" x="0.0" y="680" width="414" height="128"/>
+                                        <rect key="frame" x="0.0" y="324" width="414" height="484"/>
                                     </containerView>
                                 </subviews>
                                 <constraints>
@@ -169,6 +173,12 @@
                             <constraint firstItem="HKJ-GJ-QIY" firstAttribute="top" secondItem="o19-LL-6Pa" secondAttribute="top" id="hWL-23-p0h"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="fH7-eN-3Iw" id="O8q-TY-ZL5"/>
+                        <outlet property="placeImageView" destination="ZOc-tF-wez" id="fru-1D-fgz"/>
+                        <outlet property="placeNameLabel" destination="3cy-Nt-21C" id="ypK-Uf-5yK"/>
+                        <outlet property="segmentedControl" destination="diH-Bh-Lht" id="Iqu-bO-wDf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8N-wd-XuX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -267,6 +277,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="map" catalog="system" width="128" height="110"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
